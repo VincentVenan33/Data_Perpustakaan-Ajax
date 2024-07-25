@@ -42,7 +42,7 @@ class BukuController extends Controller
             ->orderBy('kategoris.nama')
             ->paginate(10);
 
-        return response()->json(['data' => $buku->items(), 'pagination' => $buku->links()->render()]);
+        return response()->json(['data' => $buku->items(), ]);
     }
 
 
@@ -81,7 +81,7 @@ class BukuController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         // Handle file upload
@@ -137,50 +137,6 @@ class BukuController extends Controller
      * @param  mixed $post
      * @return void
      */
-    // public function update(Request $request, Buku $buku)
-    // {
-    //     //define validation rules
-    //     $validator = Validator::make($request->all(), [
-    //         'nama'     => 'required',
-    //         'isbn'   => 'required',
-    //         'tahun'   => 'required',
-    //         'jumlah'   => 'required',
-    //         'gambar'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'id_kategori'   => 'required'
-    //     ]);
-
-    //     //check if validation fails
-    //     if ($validator->fails()) {
-    //         return response()->json($validator->errors(), 422);
-    //     }
-
-    //     // Handle file upload
-    //     $gambarPath = null;
-    //     if ($request->hasFile('gambar')) {
-    //         $file = $request->file('gambar');
-    //         $gambarPath = $file->store('public/assets/img'); // Save file and get path
-    //         $gambarPath = str_replace('public/', '', $gambarPath); // Remove 'public/' prefix
-    //     }
-
-    //     //create post
-    //     $buku->update([
-    //         'nama'     => $request->nama,
-    //         'isbn'   => $request->isbn,
-    //         'jumlah'   => $request->jumlah,
-    //         'tahun'   => $request->tahun,
-    //         'gambar'   => $request->gambar,
-    //         'id_kategoti'   => $request->id_kategoti
-    //     ]);
-
-    //     $buku->load('kategoris');
-
-    //     //return response
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'Data Berhasil Diudapte!',
-    //         'data'    => $buku
-    //     ]);
-    // }
 
     public function update(Request $request, Buku $buku)
     {
@@ -196,15 +152,15 @@ class BukuController extends Controller
 
         // Check if validation fails
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         // Handle file upload
         $gambarPath = $buku->gambar; // Keep current image path by default
         if ($request->hasFile('gambar')) {
             // Delete old image if exists
-            if ($gambarPath && Storage::exists('public/assets/img/' . $gambarPath)) {
-                Storage::delete('public/assets/img/' . $gambarPath);
+            if ($gambarPath && Storage::exists('public/' . $gambarPath)) {
+                Storage::delete('public/' . $gambarPath);
             }
 
             // Store new image
@@ -212,7 +168,6 @@ class BukuController extends Controller
             $gambarPath = $file->store('public/assets/img');
             $gambarPath = str_replace('public/', '', $gambarPath); // Remove 'public/' prefix
         }
-
         // Update the post
         $buku->update([
             'nama'       => $request->nama,

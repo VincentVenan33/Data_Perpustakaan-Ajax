@@ -161,25 +161,26 @@
             $('#modal-create').modal('hide');
         },
         error: function(error) {
-            if (error.responseJSON.nama) {
-                $('#alert-nama').removeClass('d-none').addClass('d-block').html(error.responseJSON.nama[0]);
+                let errors = error.responseJSON.errors;
+                if (errors.nama) {
+                    $('#alert-nama').removeClass('d-none').text(errors.nama[0]);
+                }
+                if (errors.isbn) {
+                    $('#alert-isbn').removeClass('d-none').text(errors.isbn[0]);
+                }
+                if (errors.tahun) {
+                    $('#alert-tahun').removeClass('d-none').text(errors.tahun[0]);
+                }
+                if (errors.jumlah) {
+                    $('#alert-jumlah').removeClass('d-none').text(errors.jumlah[0]);
+                }
+                if (errors.gambar) {
+                    $('#alert-gambar').removeClass('d-none').text(errors.gambar[0]);
+                }
+                if (errors.id_kategori) {
+                    $('#alert-kategori').removeClass('d-none').text(errors.id_kategori[0]);
+                }
             }
-            if (error.responseJSON.isbn) {
-                $('#alert-isbn').removeClass('d-none').addClass('d-block').html(error.responseJSON.isbn[0]);
-            }
-            if (error.responseJSON.tahun) {
-                $('#alert-tahun').removeClass('d-none').addClass('d-block').html(error.responseJSON.tahun[0]);
-            }
-            if (error.responseJSON.jumlah) {
-                $('#alert-jumlah').removeClass('d-none').addClass('d-block').html(error.responseJSON.jumlah[0]);
-            }
-            if (error.responseJSON.gambar) {
-                $('#alert-gambar').removeClass('d-none').addClass('d-block').html(error.responseJSON.gambar[0]);
-            }
-            if (error.responseJSON.id_kategori) {
-                $('#alert-kategori').removeClass('d-none').addClass('d-block').html(error.responseJSON.id_kategori[0]);
-            }
-        }
     });
 });
 

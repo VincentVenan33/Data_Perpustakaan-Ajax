@@ -88,7 +88,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <nav aria-label="Table Paging" class="mb-0 text-muted">
+                        <nav aria-label="Table Paging" class="mb-0 text-muted" id="pagination-nav">
                             <ul class="pagination justify-content-center mb-0">
                                 <li class="page-item{{ ($buku->currentPage() == 1) ? ' disabled' : '' }}">
                                     <a class="page-link" href="{{ $buku->previousPageUrl() }}" aria-label="Previous">
@@ -147,6 +147,7 @@
     $('#filterKategori').change(function(e) {
         e.preventDefault();
         fetchFilteredData($(this).val());
+        $('#pagination-nav').hide();
     });
 
     // Handler untuk tombol "All Data"
@@ -155,6 +156,7 @@
         // Set filterKategori ke nilai default
         $('#filterKategori').val('Pilih Kategori Buku');
         fetchAllData();
+        $('#pagination-nav').show();
     });
 
     function fetchFilteredData(selectedKategori) {
