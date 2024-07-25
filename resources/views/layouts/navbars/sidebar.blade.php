@@ -4,10 +4,10 @@
 -->
   <div class="logo">
     <a href="home" class="simple-text logo-mini">
-      {{ __('DS') }}
+      {{ __('DP') }}
     </a>
     <a href="home" class="simple-text logo-normal">
-      {{ __('Data Sekolah') }}
+      {{ __('Data Perpustakaan') }}
     </a>
   </div>
   <div class="sidebar-wrapper" id="sidebar-wrapper">
